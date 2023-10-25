@@ -1,13 +1,12 @@
-=== NanoSupport — Support Ticketing & Knowledgebase for WordPress ===
-
+=== NanoSupport ===
 Contributors: nanodesigns, wzislam
 Tags: helpdesk, support desk, support ticket, ticket plugin, ticket system, ticketing system, help desk, wp support ticketing, support staff, support ticketing, knowledge base, support plugin
 Requires at least: 4.4.0
-Tested up to: 5.1
+Tested up to: 4.9.5
 Requires PHP: 5.4.0
-Stable tag: 0.6.0
+Stable tag: 0.4.0
 License: GPL-2.0+
-License URI: https://www.gnu.org/licenses/gpl-2.0.txt
+License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
 Create a fully featured Support Center in your WordPress setup without any third party dependency, completely FREE. Get a built-in Knowledgebase too.
 
@@ -17,20 +16,16 @@ Create a fully featured Support Center within your WordPress environment without
 
 **No** 3rd party support ticketing system required, **no** external site/API dependency, **simply** create your own fully featured Support Center within your WordPress environment, and take your support into the next level.
 
-It has built-in **Knowledgebase** that is integrated to put generalized information for public acknowledgement.
+It has built-in Knowledgebase that is integrated to put generalized information for public acknowledgement.
 
 = What is it? =
 
 The plugin is to provide support to your users - the users those are taking product or services from you. So the plugin provides a manageable communication privately in between you and your that specific user only. Visit the 'Installation' tab for more details on how to use the plugin.
 
-= Extend NanoSupport =
-
-* [**Knowledgebase Search**](https://creativemarket.com/nanodesigns/3461090-NanoSupport-Knowledgebase-Search?ref=nswporg) &mdash; Search the Knowledgebase documents separately and suggest users from the Knowledgebase documents while submitting a new ticket.
-
 = Features =
 
 * OnActivation setup
-* Smart templating for nice theme and third party plugins support
+* Smart templating for nice theme support
 * Smartly designed Support Center
 * Completely Private ticketing
 * Ticket submission with registration
@@ -75,8 +70,8 @@ The plugin is to provide support to your users - the users those are taking prod
 
 To get E-Commerce Support, you will need either:
 
-* WooCommerce (WC) v2.5+ - Tested up to v3.5.5, or
-* Easy Digital Downloads (EDD) v2.2+ - Tested up to v2.9.11
+* WooCommerce (WC) v2.5+ - Tested up to v3.3.5, or
+* Easy Digital Downloads (EDD) v2.2+ - Tested up to v2.9.1
 
 = Contribute =
 
@@ -93,11 +88,11 @@ The plugin is completely translation-ready. You can find the `.pot` file under `
 Or, you can use software like [POEdit](https://poedit.net/download) ('cross-platform) or [EasyPO](http://www.eazypo.ca/), and using the plugins' `.pot` file you can easily translate the plugin locally.
 
 = Connect with NanoSupport team =
-
-* [Website](https://nanodesignsbd.com?ref=nanosupport)
+* [Website](http://nanodesignsbd.com?ref=nanosupport)
 * [Twitter](https://twitter.com/nanodesigns/)
 * [Facebook](https://facebook.com/nanodesignsbd/)
-* [LinkedIn](https://www.linkedin.com/company/nanodesigns/)
+* [LinkedIn](http://www.linkedin.com/company/nanodesigns)
+* [Google+](https://google.com/+Nanodesignsbd)
 
 == Installation ==
 
@@ -112,7 +107,7 @@ Or, you can use software like [POEdit](https://poedit.net/download) ('cross-plat
 
 1. Visit the plugin page at: https://wordpress.org/plugins/nanosupport
 2. Hit the Download button to download the `.zip` file
-3. Unzip the archive and cut/paste the folder to the `/wp-content/plugins/` directory
+3. Unzip the archive and cut/paste the folder to `/wp-content/plugins/` directory
 4. From admin 'Plugins' page, activate NanoSupport plugin
 5. Get to the plugin's 'Settings' page, and set up the plugin as you like
 6. Wait for your first ticket :)
@@ -171,9 +166,34 @@ Or, you can use software like [POEdit](https://poedit.net/download) ('cross-plat
 
 == Changelog ==
 
+= 0.5.1 - 2018-SEP-30 =
+* New filter hook: `ns_ticket_responses_arg`
+
+= 0.5.0 - 2018-MAY-11 =
+* New Feature: E-commerce &mdash; Support to products of Easy Digital Downloads (v2.5+) and WooCommerce (v2.2+)
+* Additional Feature: Let the admin end users filter tickets based on Priority and/or Status and/or Agent
+* 7 new icons to NanoSupport Icons
+* New filter hooks: 'ns_date_time_format', 'ns_mandate_product_fields'
+* Issue Fixed: Email Template background was repeating
+* Issue Fixed: Date Time format was not changeable
+* Issue Fixed: Throwing javascript error in browser console due to old focus-ring.js
+* Minor fixes on A11y issues
+
+= 0.4.1 - 2017-JUL-23 =
+* Bug fixed: Ticket additional info was affecting on show/hide in smaller devices
+* Bug fixed: Ticket assignment on behalf of support seeker was getting only administrators
+* Code of Conduct added for contributors
+* Some other minor fixes
+
+= 0.4.0 - 2017-JUN-09 =
+* New Feature: Ticket can be copied into a Knowledgebase document
+* Requested Feature: ReEngineering Knowledgebase Doc URL strucuture
+* Bug fixed: Ticket cannot be added on behalf of client
+* New filter hook: `ns_nanodoc_arguments`, `nanosupport_copied_content`, `nanosupport_assigned_user_role`
+
 [See changelog for all versions](https://github.com/nanodesigns/nanosupport/blob/master/CHANGELOG.txt).
 
 == Upgrade Notice ==
 
-= 0.6.0 =
-Major changes in the function `ns_get_template_part()` - the function is redefined.
+= 0.5.1 =
+Modified the 'content-single-ticket' template file to add new filter hook.
