@@ -35,6 +35,10 @@ function ns_ajax_scripts() {
 		wp_register_script( 'ns-comment-ajax-get-post-scripts', $url . "js/ajax.comment.post.js", array( 'jquery' ), '1.0.0', true );
 		wp_localize_script( 'ns-comment-ajax-get-post-scripts', 'get_post_comment_ajax_url', admin_url( 'admin-ajax.php', 'relative' ) );
         wp_enqueue_script( 'ns-comment-ajax-get-post-scripts' );
+
+        wp_register_script( 'ns-search-ajax-get-post-scripts', $url . "js/ajax.get.search.js", array( 'jquery' ), '1.0.0', true );
+		wp_localize_script( 'ns-search-ajax-get-post-scripts', 'ajax_ns_get_search_url', admin_url( 'admin-ajax.php', 'relative' ) );
+        wp_enqueue_script( 'ns-search-ajax-get-post-scripts' );
 	}
 
 }
@@ -344,7 +348,7 @@ function ajax_ns_get_post_comment($post) {
             } 
 
         } else {
-            $html_[] = '<div style="text-align: center;"><h3>'. esc_html__( 'Nothing to show', 'nanosupport' ) .'</h3></div>';
+            $html_[] = '<div style="text-align: center;"><h3>'. esc_html__( 'Nothing to show...', 'nanosupport' ) .'</h3></div>';
         }
                 
         $arr = implode( $html_ );
@@ -352,6 +356,75 @@ function ajax_ns_get_post_comment($post) {
         wp_send_json ( $arr );
 
     } 
+}
+
+/* AJAX action callback */
+add_action( 'wp_ajax_ns_get_search', 'ns_get_search' );
+add_action( 'wp_ajax_nopriv_ns_get_search', 'ns_get_search' );
+function ns_get_search($post) {
+
+    $inputVal = $_POST['inputVal'];
+
+    $current_user = wp_get_current_user(); 
+
+    if( current_user_can('administrator') || current_user_can('ticket-agent') ) {
+        $attachments = get_posts( array(
+            'post_type'      => 'nanosupport',
+            'posts_per_page' => -1,
+            'post_status'    => 'any',
+        ) );
+    } else {
+        $attachments = get_posts( array(
+            'post_type'      => 'nanosupport',
+            'author'        =>  $current_user->ID,
+            'posts_per_page' => -1,
+            'post_status'    => 'any',
+        ) );
+    }
+    
+    if ( $attachments ) {
+        $x = 0;
+        $i = 0;
+        foreach ( $attachments as $attachment ) {
+            foreach ( $attachment as $attachment_value ) {
+                $inputVal_explodes = explode( ' ', $inputVal );
+                if($inputVal_explode = array()){
+                    foreach($inputVal_explodes as $inputVal_explode){
+                        if( strpos($attachment_value, $inputVal_explode)){
+                            $postid[$x] = $attachment->ID;
+                            $x++;
+                        }
+                    }
+                } else {
+                    if( strpos($attachment_value, $inputVal)){
+                        $postid[$x] = $attachment->ID;
+                        $x++;
+                    }
+                }
+            }
+            $array_unique = array_unique($postid);
+        }
+        foreach($array_unique as $post_id){
+
+            $term_list = wp_get_post_terms( $post_id, 'nanosupport_status', array("fields" => "all"));
+            $get_term_color = get_term_meta( $term_list[0]->term_id, 'meta_color', true);
+
+            $ticket_issuse = get_post_meta( $post_id, '_ns_ticket_issuse', true );
+
+            $ticket_serial_number = get_post_meta( $post_id, '_ns_ticket_serial_number', true ); ?>
+
+            <?php $html[] = '<div class="ticket-cards-widget" style="background-color: rgba(115, 109, 109, 0.1); border-radius: 10px; box-shadow: 10px 15px 15px rgba(0,0,0,0.25); ">'; ?>
+
+            <?php $html[] .= '<h3 style="margin: 10px 15px 0 15px; padding-top: 10px;"><a class="ticket-title-shadow" style="color:'. $get_term_color . '" href="'.get_post_permalink($post_id).'">'.get_the_title($post_id) .'</a><div style="float: right; background-color:'. $get_term_color . '; font-size: 15px; line-height: 2.25; white-space: pre-wrap; box-shadow: 2.5px 2.5px 10px rgb(0 0 0 / 50%); border-radius: .25em;">'.$term_list[0]->name.'</div></h3>'; ?>
+            <?php $html[] .= '<h4 style="margin: 10px 15px 0 15px;"><p style="margin: 0 5px 5px 0;">'.$ticket_serial_number.'</p><p style="margin: 0 5px 5px 0;">RMA # '.$post_id.'</p><p style="margin: 0 5px 5px 0;">'.$ticket_issuse.'</p></h4>'; ?>
+
+            <?php $html[] .= '</div>'; ?>
+
+            <?php
+        }
+    }
+
+	return wp_send_json ( implode($html) );
 }
 
 ?>

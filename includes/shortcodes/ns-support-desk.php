@@ -42,18 +42,11 @@ function ns_support_desk_page() {
 
 			<?php
 
-			$form_factor_terms = get_terms( array(
-				'taxonomy' => 'nanosupport_form_factor',
-				'hide_empty' => false,
-			) );
-			$i = 0;
-			$x = 0;
-			if ( $form_factor_terms ) {
 				$form_factor_terms = get_terms( array(
 					'taxonomy' => 'nanosupport_form_factor',
-					'hide_empty' => false,
+					'hide_empty' => true,
 				) );
-				
+				if ( $form_factor_terms ) {
 				if( current_user_can('administrator') || current_user_can('ticket-agent') ) {
 					$i = 0;
 					foreach ( $form_factor_terms as $form_factor_term ) {
@@ -90,34 +83,37 @@ function ns_support_desk_page() {
 				} else {
 					$i = 0;
 					foreach ( $form_factor_terms as $form_factor_term ) {
-						$form_factor_ticket = get_posts(array(
-							'post_type'     => 'nanosupport',
-							'post_status'   => array('pending', 'private', 'publish'),
-							'author'		=> $current_user->ID,
-							'posts_per_page' => -1,
-							'tax_query' => array(
-								array(
-									'taxonomy' => 'nanosupport_form_factor',
-									'field' => 'term_id',
-									'terms' => $form_factor_term->term_id,
+							if ( $form_factor_terms ) {
+							$form_factor_ticket = get_posts(array(
+								'post_type'     => 'nanosupport',
+								'post_status'   => array('pending', 'private', 'publish'),
+								'author'		=> $current_user->ID,
+								'posts_per_page' => -1,
+								'tax_query' => array(
+									array(
+										'taxonomy' => 'nanosupport_form_factor',
+										'field' => 'term_id',
+										'terms' => $form_factor_term->term_id,
+									)
 								)
-							)
-						));
-						if($form_factor_ticket){
-							$form_factor_arry[$i]['name'] .= $form_factor_term->name;
-							$form_factor_arry[$i]['slug'] .= $form_factor_term->slug;
-							$form_factor_arry[$i]['userid'] .= $user->ID;
-							$form_factor_arry[$i]['count'] .= count($form_factor_ticket);
-							$form_factor_arry[$i]['color'] .= get_term_meta($form_factor_term->term_id, 'meta_color', true);
+							));
+							if($form_factor_ticket){
+								$form_factor_arry[$i]['name'] .= $form_factor_term->name;
+								$form_factor_arry[$i]['slug'] .= $form_factor_term->slug;
+								$form_factor_arry[$i]['userid'] .= $user->ID;
+								$form_factor_arry[$i]['count'] .= count($form_factor_ticket);
+								$form_factor_arry[$i]['color'] .= get_term_meta($form_factor_term->term_id, 'meta_color', true);
+							}
+							$i++;
 						}
-						usort($form_factor_arry, 'ns_form_factor_compare');
-	
-						echo '<div style="display: table-cell;">';
-						foreach($form_factor_arry as $form_factor_sort) {
-							echo '<div style="float: left; padding: 7.5px; margin: 7.5px; background-color:'.$form_factor_sort['color'].'" div="ns-label"><a href="?form_factor='.$form_factor_sort['slug'].'" style="color: #000;">'.$form_factor_sort['name'].' - '.$form_factor_sort['count'].'</a></div>';
-						}
-						echo '</div>';		
 					}
+					usort($form_factor_arry, 'ns_form_factor_compare');
+
+					echo '<div style="display: table-cell;">';
+					foreach($form_factor_arry as $form_factor_sort) {
+						echo '<div style="float: left; padding: 7.5px; margin: 7.5px; background-color:'.$form_factor_sort['color'].'" div="ns-label"><a href="?form_factor='.$form_factor_sort['slug'].'" style="color: #000;">'.$form_factor_sort['name'].' - '.$form_factor_sort['count'].'</a></div>';
+					}
+					echo '</div>';		
 				}
 			}
 			?>

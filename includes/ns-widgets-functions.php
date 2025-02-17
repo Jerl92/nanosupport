@@ -175,7 +175,7 @@ class ns_comment_widget extends WP_Widget {
                                     }
                                                                         
                                 } else {
-                                    echo '<div style="text-align: center;"><h3>'. esc_html__( 'Nothing to show', 'nanosupport' ) .'</h3></div>';
+                                    echo '<div style="text-align: center;"><h3>'. esc_html__( 'Nothing to show...', 'nanosupport' ) .'</h3></div>';
                                 }
                                 
                             } ?>

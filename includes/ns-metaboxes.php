@@ -285,8 +285,19 @@ function ns_control_specifics() {
                 <div class="ns-body-col">
                     <div class="ns-field">
                         <?php echo get_user_meta($meta_data_rma_author->ID, 'phone_number', true) ?>
-                        <?php echo " " ?>
-                        <?php echo get_user_meta($meta_data_rma_author->ID, 'phone_extension', true) ?>
+                        <?php $phone_extension = get_user_meta($meta_data_rma_author->ID, 'phone_extension', true) ?>
+                        <?php if($phone_extension != ''){
+                            echo " - ";
+                        } ?>
+                        <?php echo $phone_extension; ?>
+                    </div> <!-- /.ns-field -->
+                </div> <!-- /.ns-box -->
+                <div class="ns-body-col">
+                    <div class="ns-field">
+                        <?php $user_id = get_current_user_id(); 
+                        $user_info = get_userdata($meta_data_rma_author->ID);
+                        $mailadresje = $user_info->user_email;
+                        echo $mailadresje; ?>
                     </div> <!-- /.ns-field -->
                 </div> <!-- /.ns-box -->
             </div>
