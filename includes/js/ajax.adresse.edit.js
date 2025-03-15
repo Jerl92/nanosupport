@@ -1,14 +1,8 @@
 function ns_edit_adresse($) {
-    
-    $.fn.ready();
-	'use strict';
-
-
-	/**
-	 * Remove All from Saved for Later
-	 */
 	$('.alternative_adresse_edit').on('click', function(event) {
         event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
                         
         var $this = $(this),
             object_id = {id:$this.attr('data-id')};
@@ -48,10 +42,6 @@ jQuery(document).ready(function($) {
 });
 
 function ns_edit_adresse_save($) {
-    
-    $.fn.ready();
-	'use strict';
-
     $('.alternative_adresse_edit_save').on('click', function(event) {
         event.preventDefault();
                         

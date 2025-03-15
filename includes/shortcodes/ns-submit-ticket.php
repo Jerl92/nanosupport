@@ -365,10 +365,10 @@ function ns_submit_support_ticket() {
 									<button type="button" id="clear_alternative_adresse" name="clear_alternative_adresse" class="disabled ns-btn ns-btn-primary ns-btn-alternative-adresse">
 										<?php esc_html_e( 'Use account Adresse', 'nanosupport' ); ?>
 									</button> 
-									<button type="button" class="add_alternative_adresse ns-btn ns-btn-primary ns-btn-alternative-adresse">
+									<button type="button" id="add_alternative_adresse" class="add_alternative_adresse ns-btn ns-btn-primary ns-btn-alternative-adresse">
 										<?php esc_html_e( 'Edit Adresse', 'nanosupport' ); ?>
 									</button> 
-									<button type="button" class="select_alternative_adresse hide ns-btn ns-btn-primary ns-btn-alternative-adresse">
+									<button type="button" id="select_alternative_adresse" class="select_alternative_adresse hide ns-btn ns-btn-primary ns-btn-alternative-adresse">
 										<?php esc_html_e( 'Select Adresse', 'nanosupport' ); ?>
 									</button> 
 								</div>

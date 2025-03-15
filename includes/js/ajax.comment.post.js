@@ -1,16 +1,6 @@
 function ns_get_post_comment($) {
-    
-    $.fn.ready();
-	'use strict';
-
-
-	/**
-	 * Remove All from Saved for Later
-	 */
 	if ($('.ticket-responses-widget')) {
-                        
-		var $this = $(this),
-		ns_label = $('.ns-label'),
+		var ns_label = $('.ns-label'),
 		object_id = null;
 
 		$.ajax({

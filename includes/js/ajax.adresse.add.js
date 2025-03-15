@@ -1,14 +1,8 @@
 function ns_add_adresse($) {
-    
-    $.fn.ready();
-	'use strict';
-
-
-	/**
-	 * Remove All from Saved for Later
-	 */
 	$('.alternative_adresse_submit').on('click', function(event) {
-        event.preventDefault();
+		event.preventDefault();
+		event.stopPropagation();
+		event.stopImmediatePropagation();
                         
         var $this = $(this),
                 alternative_adresse = {organization:$(".organization").val(), adresse:$(".adresse").val(), ville:$(".ville").val(), province:$(".province").val(), code_postal:$(".code_postal").val(), pays:$(".pays").val()},

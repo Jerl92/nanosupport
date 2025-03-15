@@ -1,14 +1,8 @@
-function ns_remove_adresse($) {
-    
-    $.fn.ready();
-	'use strict';
-
-
-	/**
-	 * Remove All from Saved for Later
-	 */
+	function ns_remove_adresse($) {
 	$('.alternative_adresse_remove').on('click', function(event) {
-        event.preventDefault();
+		event.preventDefault();
+		event.stopPropagation();
+		event.stopImmediatePropagation();
                         
         var $this = $(this),
             object_id = $this.attr('data-id');
@@ -34,7 +28,6 @@ function ns_remove_adresse($) {
 					$('.ticket-retrun-adresse-edit-form input[name="alternative_adresse_edit_save"]').css('display', 'none');
 				}
                 ns_edit_adresse($);
-				ns_remove_adresse($);
 				ns_update_adresse($);
 			},
 			error: function(error) {

@@ -1,14 +1,4 @@
 function ns_update_adresse($) {
-    
-    $.fn.ready();
-	'use strict';
-
-	/**
-	 * Remove All from Saved for Later
-     */                  
-
-    var $this = $(this);
-
     $.ajax({
         type: 'post',
         url: update_adresse_ajax_url,
